@@ -19,12 +19,13 @@ const Form = () => {
 
 
   if (status === "success") {
+    dispatch(userSignin());
     navigate("/profile");
   }
 
-  useEffect(() => {
-    dispatch(userSignin());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(userSignin());
+  // }, [dispatch]);
 
  
   return (
