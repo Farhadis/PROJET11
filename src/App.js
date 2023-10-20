@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Signin from "./Pages/Signin/Signin";
+import Index from "./Pages/index/Index";
+import User from "./Pages/User/User";
+import Page404 from './Pages/404/Page404';
+import PrivateRoute from './components/PrivateRoute'
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    	<BrowserRouter>
+		
+			<Routes>
+				<Route exact path="/" element={<Index />} />					
+				<Route exact path="/login" element={<Signin />} />
+				<Route element={<PrivateRoute />}>
+          			<Route exact path='/profile' element={<User />} />
+        		</Route>
+
+				{/* <Route path='/user' 
+					element={
+					<PrivateRoute >
+						<User />
+					</PrivateRoute>
+				} 
+        		/> */}
+				<Route path="*" element={<Page404 />} />
+          	
+																	
+			</Routes>
+	
+		</BrowserRouter>
+		
   );
 }
 
 export default App;
+
+
