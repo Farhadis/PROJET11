@@ -117,7 +117,7 @@ paths:
           description: user's accounts recovered successfully
           schema:
             $ref: '#/definitions/UserAccount'
-        '401':
+        '400':
           description: Unauthorized
         '500':
           description: Internal Server Error

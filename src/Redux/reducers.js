@@ -28,7 +28,7 @@ export const userSignin = createAsyncThunk(
           }
         })
 
-      console.log(rememberMe)
+        console.log(rememberMe)
       
         if (rememberMe) {
           localStorage.setItem("token", response.body.token);
@@ -37,7 +37,7 @@ export const userSignin = createAsyncThunk(
           sessionStorage.setItem("token", response.body.token);
         }
 
-      const user = await getToken(response.body.token);
+      const user = await userInfo(response.body.token);
       return { email: email, data: user.body, token: response.body.token };
             
     } catch (error) {
@@ -74,7 +74,7 @@ export const editUserName = createAsyncThunk(
 );
 
 
-async function getToken(token) {
+async function userInfo(token) {
   const response = await fetch("http://localhost:3001/api/v1/user/profile", {
     method: "POST",
     headers: {

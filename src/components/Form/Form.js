@@ -18,16 +18,14 @@ const Form = () => {
 
 
 
-  if (status === "success") {
+  useEffect(() => {    
+    if (status === "success") {
+      navigate("/profile")
+    
     dispatch(userSignin());
-    navigate("/profile");
-  }
+    }}, [dispatch, navigate, status]
+  );
 
-  // useEffect(() => {
-  //   dispatch(userSignin());
-  // }, [dispatch]);
-
- 
   return (
     <div>
       <form>
