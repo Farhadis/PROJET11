@@ -14,17 +14,6 @@ const Nav = () => {
   const userName = useSelector(state => state.user.user.userName)
   const navigate = useNavigate()
   
-  
- 
-  // const [name, setName] = useState("");
-
-
-
-  // useEffect(() => {
-  //   setName(userName);
-  // }, [userName]);
-
-
 
   const signOut = (e) => {
     e.preventDefault();
@@ -34,10 +23,7 @@ const Nav = () => {
     navigate('/login')
   };
   
-  // const removeToken = () => {
-  //   sessionStorage.removeItem("token");
-  // }
-
+ 
     return (
         <div className="main-nav">
         <NavLink className="main-nav-logo" to='/'>

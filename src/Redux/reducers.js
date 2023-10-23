@@ -111,51 +111,6 @@ async function userInfo(token) {
 
 
 
-// const connectionSlice = createSlice({
-//   name: "user",
-//   initialState,
-//   reducers: {},
-//   extraReducers(builder) {
-//     builder
-//       .addCase(userSignin.fulfilled, (state, action) => {
-//         state.user = {
-//           email: action.payload.email,
-//           token: action.payload.token,
-//           firstName: action.payload.data.firstName,
-//           lastName: action.payload.data.lastName,
-//           userName: action.payload.data.userName,
-//         };
-//         state.status = "success";
-//         state.error = "";
-//       })
-
-//       .addCase(userSignin.rejected, (state, action) => {
-//         state.status = "error";
-//         state.error = action.payload;
-//       })
-
-//       .addCase(userSignin.pending, (state) => {
-//         state.status = "Connecting ... ";
-//         state.error = "";
-//       })
-
-//       .addCase("SIGNOUT", (state) => {
-//         state.user = { token: "" };
-//         state.status = "idle";
-//         state.error = "";
-//       })
-
-//       .addCase(editUserName.fulfilled, (state, action) => {
-//         let user = state.user;
-//         user.userName = action.payload.body.userName;
-//         state.user = user;
-//       });
-
-
-//   },
-// });
-
-// export default connectionSlice.reducer;
 
 
 
@@ -164,55 +119,3 @@ async function userInfo(token) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//36   //   .then((data) => {
-      //     return data;
-      //   });
-
-//47// export const editUserName = createAsyncThunk(
-//   "user/editUserName",
-//   async ({ userName, token }, thunkAPI) => {
-//     try {
-//       const response = await fetch(
-//         "http://localhost:3001/api/v1/user/profile",
-//         {
-//           method: "PUT",
-//           headers: {
-//             Authorization: `Bearer ${token}`,
-//             "Content-Type": "application/json",
-//           },
-//           body: JSON.stringify({ userName }),
-//         }
-//       ).then((response) => {
-//         if (response.ok) {
-//           return response.json();
-//         }
-//       });
-//       return response;
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error.message);
-//     }
-//   }
-// );
-
-
-      //126 .addCase(editUserName.fulfilled, (state, action) => {
-      //   let user = state.user;
-      //   user.userName = action.payload.body.userName;
-      //   state.user = user;
-      // });
