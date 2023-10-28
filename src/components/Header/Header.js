@@ -1,9 +1,7 @@
 import './header.css'
-import Nav from '../Nav/Nav';
 import { NavLink } from "react-router-dom";
+import Nav from '../Nav/Nav';
 import logo from '../../assets/argentBankLogo.png'
-
-
 
 
 
@@ -39,7 +37,6 @@ const Header = () => {
             <Nav />
     )
 }
-    };
-
+};
 
 export default Header

@@ -16,12 +16,9 @@ const Form = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
-
   useEffect(() => {    
     if (status === "success") {
-      navigate("/profile")
-    
+      navigate("/profile")    
     dispatch(userSignin());
     }}, [dispatch, navigate, status]
   );
@@ -83,25 +80,3 @@ const Form = () => {
 };
 
 export default Form;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

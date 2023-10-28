@@ -42,11 +42,9 @@ export default function Edite() {
     setNewUserName(userName);
   }, [userName]);
 
-
-
   return (
     <div >
-      <h1>{title}<br />{firstName} { lastName} {exMark}</h1>
+ 
       <div className="userName center">
         <form
           className="userName_form"

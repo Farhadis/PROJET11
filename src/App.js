@@ -17,17 +17,7 @@ function App() {
 				<Route element={<PrivateRoute />}>
           			<Route exact path='/profile' element={<User />} />
         		</Route>
-
-				{/* <Route path='/user' 
-					element={
-					<PrivateRoute >
-						<User />
-					</PrivateRoute>
-				} 
-        		/> */}
-				<Route path="*" element={<Page404 />} />
-          	
-																	
+				<Route path="*" element={<Page404 />} />																	
 			</Routes>
 	
 		</BrowserRouter>

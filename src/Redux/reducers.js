@@ -1,12 +1,24 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 
 
 
-export const userSignin = createAsyncThunk(
-  
-  "user/login",
 
+const initialState = {
+  user: {
+    email: "",
+    token: "",
+    firstName: "",
+    lastName: "",
+    userName: "",
+  },
+  status: "idle",
+  error: "",
+};
+
+export const userSignin = createAsyncThunk(  
+  "user/signin",
   async ({ email, password, rememberMe }, thunkAPI) => {
     try {
       const response = await fetch("http://localhost:3001/api/v1/user/login", {
@@ -27,8 +39,11 @@ export const userSignin = createAsyncThunk(
             throw new Error(" Incorrecte username or password !");
           }
         })
+        .then((data) => {
+          return data;
+        });
 
-        console.log(rememberMe)
+      console.log(rememberMe)
       
         if (rememberMe) {
           localStorage.setItem("token", response.body.token);
@@ -37,7 +52,7 @@ export const userSignin = createAsyncThunk(
           sessionStorage.setItem("token", response.body.token);
         }
 
-      const user = await userInfo(response.body.token);
+      const user = await getInfo(response.body.token);
       return { email: email, data: user.body, token: response.body.token };
             
     } catch (error) {
@@ -48,9 +63,10 @@ export const userSignin = createAsyncThunk(
 
 export const editUserName = createAsyncThunk(
   "user/editUserName",
-  async ({ userName, token }, thunkAPI) => {
+  async ({ userName }, thunkAPI) => {
     try {
-      const res = await fetch(
+      const token = localStorage.getItem("token");
+      const response = await fetch(
         "http://localhost:3001/api/v1/user/profile",
         {
           method: "PUT",
@@ -65,7 +81,7 @@ export const editUserName = createAsyncThunk(
           return res.json();
         }
       });
-      return res;
+      return response;
 
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -73,8 +89,7 @@ export const editUserName = createAsyncThunk(
   }
 );
 
-
-async function userInfo(token) {
+async function getInfo(token) {
   const response = await fetch("http://localhost:3001/api/v1/user/profile", {
     method: "POST",
     headers: {
@@ -91,30 +106,99 @@ async function userInfo(token) {
     }
   });
   return response;
+};
+
+
+export const  getUserProfile = createAsyncThunk (
+  "user/profile",
+  async ({userName}, thunkAPI) => {
+    try {
+      let token = localStorage.getItem("token");  
+      if (!token) {
+        token = sessionStorage.getItem("token");
+      }
+    const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  }).then((res) => {
+    if (res.ok) {
+      console.log(userName)
+      return res.json();
+    } else {
+      throw new Error(
+        " Opps there seems to be an error!"
+      );
+    }
+  })  
+    return response;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
 }
+);
 
 
 
 
+const connectionSlice = createSlice({
+  name: "user",
+  initialState,
+  reducers: {},
+  extraReducers(builder) {
+    builder
+      .addCase(userSignin.fulfilled, (state, action) => {
+        state.user = {
+          email: action.payload.email,
+          token: action.payload.token,
+          firstName: action.payload.data.firstName,
+          lastName: action.payload.data.lastName,
+          userName: action.payload.data.userName,
+        };
+        state.status = "success";
+        state.error = "";
+      })
 
+      .addCase(userSignin.rejected, (state, action) => {
+        state.status = "error";
+        state.error = action.payload;
+      })
 
+      .addCase(userSignin.pending, (state) => {
+        state.status = "Connecting ... ";
+        state.error = "";
+      })
 
+      .addCase("SIGNOUT", (state) => {
+        state.user = { token: "" };          
+        state.status = "idle";
+        state.error = "";
+      })
 
+      .addCase(editUserName.fulfilled, (state, action) => {
+        let user = state.user;
+        user.userName = action.payload.body.userName;
+        state.user = user;
+      })
 
+      .addCase(getUserProfile.fulfilled, (state, action) =>{
+        state.user = {
+          email: "",
+          token: action.payload.token,
+          firstName:action.payload.body.firstName,
+          lastName: action.payload.body.lastName,
+          userName: action.payload.body.userName,
+        };
+        state.status = "success";
+        state.error = "";
+    })
 
+  },
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
+export default connectionSlice.reducer;
 
 
 
