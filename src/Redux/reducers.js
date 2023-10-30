@@ -3,6 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 
+const localStorage = localStorage.getItem('token');
+const sessionStorage = sessionStorage.getItem('token');
+const token = localStorage || sessionStorage;
 
 
 const initialState = {
@@ -39,9 +42,7 @@ export const userSignin = createAsyncThunk(
             throw new Error(" Incorrecte username or password !");
           }
         })
-        .then((data) => {
-          return data;
-        });
+
 
       console.log(rememberMe)
       
@@ -52,8 +53,8 @@ export const userSignin = createAsyncThunk(
           sessionStorage.setItem("token", response.body.token);
         }
 
-      const user = await getInfo(response.body.token);
-      return { email: email, data: user.body, token: response.body.token };
+
+      return getInfo()
             
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -65,7 +66,7 @@ export const editUserName = createAsyncThunk(
   "user/editUserName",
   async ({ userName }, thunkAPI) => {
     try {
-      const token = localStorage.getItem("token");
+
       const response = await fetch(
         "http://localhost:3001/api/v1/user/profile",
         {
@@ -89,7 +90,8 @@ export const editUserName = createAsyncThunk(
   }
 );
 
-async function getInfo(token) {
+async function getInfo() {
+
   const response = await fetch("http://localhost:3001/api/v1/user/profile", {
     method: "POST",
     headers: {
@@ -153,9 +155,9 @@ const connectionSlice = createSlice({
         state.user = {
           email: action.payload.email,
           token: action.payload.token,
-          firstName: action.payload.data.firstName,
-          lastName: action.payload.data.lastName,
-          userName: action.payload.data.userName,
+          firstName: action.payload.body.firstName,
+          lastName: action.payload.body.lastName,
+          userName: action.payload.body.userName,
         };
         state.status = "success";
         state.error = "";
