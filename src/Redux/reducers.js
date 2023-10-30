@@ -2,7 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
 
-
 const localStorage = localStorage.getItem('token');
 const sessionStorage = sessionStorage.getItem('token');
 const token = localStorage || sessionStorage;
@@ -143,8 +142,6 @@ export const  getUserProfile = createAsyncThunk (
 );
 
 
-
-
 const connectionSlice = createSlice({
   name: "user",
   initialState,
@@ -201,7 +198,4 @@ const connectionSlice = createSlice({
 });
 
 export default connectionSlice.reducer;
-
-
-
 

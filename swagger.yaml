@@ -14,7 +14,7 @@ paths:
       tags:
         - TRANSACTIONS Module
       summary: Get user's transactions for a specific month
-      description: Retrieve every transactions of user for a month
+      description: Retrieve every transactions of user by month
       parameters:
         - name: Authorization
           in: header
@@ -26,7 +26,6 @@ paths:
           description: Attach Bearer by Json Web token
           required: true
           type: integer
-          format: int32
           minimum: 1
           maximum: 12
       produces:
@@ -85,7 +84,7 @@ paths:
       tags:
         - TRANSACTIONS Module 
       summary: Update the transactions infos
-      description: Modify the transactions infos
+      description: Edit the transactions infos
       parameters:
         - name: Authorization
           in: header
@@ -138,7 +137,7 @@ definitions:
         description: category of the transaction
       notes:
         type: string
-        description: any relevant note user want to add
+        description: Note of the transaction
   userTransaction:
     type: object
     properties:
