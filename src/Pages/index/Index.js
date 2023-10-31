@@ -2,9 +2,9 @@ import React from "react";
 import Header from "../../components/Header/Header"
 import Footer from "../../components/Footer/Footer"
 import Feature from "../../components/Features/Feature"
-import money from "../../assets/icon-money.png"
-import chat from "../../assets/icon-chat.png"
-import security from "../../assets/icon-security.png"
+import money from "../../assets/icon-money.webp"
+import chat from "../../assets/icon-chat.webp"
+import security from "../../assets/icon-security.webp"
 
 
 

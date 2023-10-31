@@ -6,7 +6,9 @@ import logo from '../../assets/argentBankLogo.png'
 
 
 const Header = () => {
-    const token = localStorage.getItem('token');
+    const tokenLocalStorage = localStorage.getItem('token');
+    const tokenSessionStorage = sessionStorage.getItem('token');
+    const token = tokenLocalStorage || tokenSessionStorage;
       
     if (!token){
     return (
@@ -27,9 +29,7 @@ const Header = () => {
                     to="/login">
                     <i className="fa fa-user-circle"></i>
                         Sign In
-                </NavLink>
-
-              
+                </NavLink>             
             </div>
         </div>
     )} else {
